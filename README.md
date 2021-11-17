@@ -9,3 +9,31 @@ Source: San Francisco Open Data
 
 https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg
 
+**Celem projektu jest zbudowanie modelu klasyfikacyjnego, który na podstawie podanych danych będzie przewidywał z określoną dokładnością ilu pasażerów zostanie przewiezionych na podstawie podanych parametrów**
+
+* Obróbka danych (Data Processing):
+    * Zmieniono nazwy kolumn zgodnie z common practice (nazwy ciągłe bez spacji) - zamieniłam spacje na '_' - funkcja rename
+    * Po wstępnym przeglądzie danych (użyte funkcje: info, describe) użyłam pandas_profiling do pogłębionej analizy poszczególnych kolumn - zapisano w pliku 'output.html'
+    * Ponieważ dane w kolumnach które należy zanalizować są typu "object" zmieniłam 14 kolumn (wyłączając "Passangers_Count" i "Adjusted_Passangers_Count") za pomocą funkcji factorize na dane liczbowe (float)
+    * Zbadałam korelecja poszczególnych kolumn z "Passanger_Count" (funkcja corr)
+    * Następnie zwizualizowałam "Passanger_Count" do pozostałych kolumn
+
+* Normalizacja
+    * Znormalizowałam kolumny (MinMaxScaler)
+
+* Spilit
+    * Podzieliłam dane do modelowania
+    Tu pojawił się problem danych typu float -> zmieniłam dane y ("Passanger_Count" na multiclass za pomocą funcji LabelEncoder)
+
+* Klasyfikacja:
+   
+        * KNeighborsClassifier()
+        * GaussianNB()
+        * LinearSVC()
+        * SGDClassifier()
+        * DecisionTreeClassifier()
+    
+Funkcja którą wykorzystałam do porówniania poszczególnych paramtetrów klasyfikatorów została zaczerpnięta z DataWorkshop realizowanego z Vladimirem Alekseichenko. https://dataworkshop.eu/
+
+
+
